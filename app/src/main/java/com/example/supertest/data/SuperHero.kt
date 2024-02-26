@@ -1,15 +1,23 @@
 package com.example.supertest.data
 
+import android.media.Image
 import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET
 
 
 class SuperHero {
+    @SerializedName("name") var name:String="-"
+    @SerializedName("biography") var biography:String ="-"
+    @SerializedName("image") var image:Image = TODO()
+
+}
+
+class SuperResponse{
 
 
     @SerializedName("respose") val response=:String
 
-            @GET("api/7252591128153666""https://superheroapi.com/")
+            @GET("https://www.superheroapi.com/api.php/7252591128153666/search/super")
 
     fun searchSuperhero(query:String) {
         val retrofit=RetrofitLib.

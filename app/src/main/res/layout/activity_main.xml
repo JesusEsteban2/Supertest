@@ -7,6 +7,7 @@
     tools:context=".Activities.MainActivity"
     tools:ignore="MissingConstraints">
     <LinearLayout
+        android:id="@+id/linearL1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -16,15 +17,16 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="Hello World!"
+            android:text="Type look term"
 
             />
 
         <ImageView
             android:id="@+id/findButton"
-            android:layout_height="@+id/editSearch"
+            android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.2"
+            android:layout_margin="5dp"
             android:src="@drawable/search_24"
         />
 
@@ -36,8 +38,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/editSearch"
-        app:layout_constraintStart_toStartOf="editSearch"
+        app:layout_constraintTop_toBottomOf="@+id/linearL1"
+        app:layout_constraintStart_toStartOf="@+id/linearL1"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
