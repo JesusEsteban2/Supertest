@@ -42,8 +42,12 @@ android {
 
 dependencies {
 
+    // Implementation retrofit 2.9.0
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    // Implementation gson 2.9.0
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    // Implementation Picasso 2.8
+    implementation ("com.squareup.picasso:picasso:2.8")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

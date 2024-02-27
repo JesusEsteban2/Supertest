@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.supertest.R
 import com.example.supertest.data.SuperHero
+import com.squareup.picasso.Picasso
 
 class SuperheroAdapter {
 
@@ -26,8 +27,8 @@ class SuperheroAdapter {
 
             init {
                 // Define click listener for the ViewHolder's View.
-                imageView= view.findViewById(R.id.horoImage)
-                textView = view.findViewById(R.id.horoText)
+                imageView= view.findViewById(R.id.superImage)
+                textView = view.findViewById(R.id.superName)
             }
         }
 
@@ -43,7 +44,7 @@ class SuperheroAdapter {
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
             // Create a new view, which defines the UI of the list item
             val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_superHero, viewGroup, false)
+                .inflate(R.layout.item_superhero, viewGroup, false)
 
             return ViewHolder(view)
         }
@@ -53,14 +54,15 @@ class SuperheroAdapter {
 
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
+            // val context: Context = viewHolder.itemView.context
 
-            val context: Context = viewHolder.itemView.context
+            Picasso.get().load(listSuperHero[position].httpImage.url).into(viewHolder.imageView)
+            // Without Picaso
+            // viewHolder.imageView.setImageBitmap(context.getDrawable(listSuperHero[position].img)
+            //    ?.toBitmap() ?: viewHolder.imageView!!.toBitmap() )
 
-            viewHolder.imageView.setImageBitmap(context.getDrawable(listHoroscope[position].img)
-                ?.toBitmap() ?: context.getDrawable(R.drawable.aries)!!.toBitmap() )
-
-            viewHolder.textView.text = context.getString(listHoroscope[position].name)
-            //viewHolder.render(items[position]
+            viewHolder.textView.text = listSuperHero[position].name
+            // viewHolder.render(items[position])
             viewHolder.itemView.setOnClickListener {onClickListener(position)}
         }
 

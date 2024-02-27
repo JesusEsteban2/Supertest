@@ -1,0 +1,50 @@
+
+
+Retrofit apuntes
+
+Hay que crear 2 objetos, el servicio y el adaptador
+
+******* Servicio ******************
+// Retrofit create a service
+val service = retrofit.create<UserApiService>()
+
+// Llamadas Get
+interface UserApiService {
+
+  @GET("/user")
+  suspend fun getUsers(): Result<Users>
+
+  // Replacements blocks
+  @GET("/user/{id}")
+  suspend fun getUserById(@Path("id") id: Int): Result<User>
+
+  // Query parameter
+  @GET("/user")
+  suspend fun getUsers(@Query("page") page: Int): Result<Users>
+
+  // Complex query combinations
+  @GET("/user")
+  suspend fun getUsers(@QueryMap queries: Map<String, String>): Result<Users>
+}
+
+****************************************
+https://apiumhub.com/es/tech-blog-barcelona/migrando-retrofit-a-ktor/
+https://www.baeldung.com/retrofit
+ttps://cursokotlin.com/tutorial-retrofit-2-en-kotlin-con-corrutinas-consumiendo-api-capitulo-20-v2/
+
+******* Adaptador ******************
+// creates okHttp engine
+val okHttp = OkHttpClient.Builder()
+    .build()
+
+val retrofit = Retrofit.Builder()
+// add base url for all request
+    .baseUrl("https://www.superheroapi.com/api.php/7252591128153666/search/")
+// add gson content negotiation
+    .addConverterFactory(GsonConverterFactory.create())
+// add adapter to wrap response with result
+    .addCallAdapterFactory(ResultCallAdapterFactory.create())
+    .client(okHttp)
+    .build()
+
+****************************************
