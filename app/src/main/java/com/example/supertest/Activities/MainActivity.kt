@@ -1,24 +1,24 @@
 package com.example.supertest.Activities
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.supertest.R
 import com.example.supertest.adapters.SuperheroAdapter
-import com.example.supertest.data.SuperHero
+import com.example.supertest.data.RetrofitBuilder
 import com.example.supertest.data.RetrofitService
-import com.example.supertest.data.SuperHeroResponse
+import com.example.supertest.data.SuperHero
 import com.example.supertest.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -42,16 +42,28 @@ class MainActivity : AppCompatActivity() {
         }
         binding.recViewMain.adapter = adapter
         binding.recViewMain.layoutManager = GridLayoutManager(this, 2)
-        binding.findButton.setOnClickListener({searchSuperheroes(binding.editSearch.text.toString())})
+
+        //Captura el intro enb el cuadro de texto para realizar la busqueda en vez de nueva línea
+        binding.editSearch.setOnEditorActionListener(OnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.action == KeyEvent.ACTION_DOWN || keyEvent.action == KeyEvent.KEYCODE_ENTER) {
+                binding.findButton.requestFocus()
+                searchSuperheroes(binding.editSearch.text.toString())
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+
+        binding.findButton.setOnClickListener{searchSuperheroes(binding.editSearch.text.toString())}
     }
 
     private fun onItemClickListener(position:Int) {
         val superhero: SuperHero = superheroList[position]
 
         val intent = Intent(this, DetailActivity::class.java)
-        //intent.putExtra(DetailActivity.EXTRA_ID, superhero.id)
-        //intent.putExtra(DetailActivity.EXTRA_NAME, superhero.name)
-        //intent.putExtra(DetailActivity.EXTRA_IMAGE, superhero.httpImage.url)
+        intent.putExtra("EXTRA_ID", superhero.id)
+        intent.putExtra("EXTRA_NAME", superhero.name)
+        intent.putExtra("EXTRA_IMAGE", superhero.httpImage.url)
         startActivity(intent)
         //Toast.makeText(this, getString(horoscope.name), Toast.LENGTH_LONG).show()
     }
@@ -59,36 +71,31 @@ class MainActivity : AppCompatActivity() {
     private fun searchSuperheroes(query: String) {
         //binding.progress.visibility = View.VISIBLE
 
-         var retrofit = Retrofit.Builder()
-            .baseUrl("https://www.superheroapi.com/api.php/7252591128153666/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        //ocultar el teclado
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.editSearch.getWindowToken(), 0)
 
-        val service: RetrofitService = retrofit.create(RetrofitService::class.java)
+        //si buscas en el searchview del menu, se puede usar para ocultar el teclado.
+        // binding.editSearch.clearFocus()
+
+        val service=RetrofitBuilder.getService()
 
         CoroutineScope(Dispatchers.IO).launch {
-            // Llamada en segundo plano
+            // Llamada en 2º plano
             val response = service.searchByName(query)
 
             runOnUiThread {
                 // Modificar UI
                 //binding.progress.visibility = View.GONE
-
-                if (response.body() != null) {
+                if (response.body()!!.listSuperHero != null && response.isSuccessful == true) {
                     Log.i("HTTP", "respuesta correcta :)")
+                    Log.i ("HTTP", response.body().toString())
                     superheroList = response.body()!!.listSuperHero
                     adapter.updateItems(superheroList)
-
-                    if (superheroList.isNotEmpty()) {
-                        binding.recViewMain.visibility = View.VISIBLE
-                        //binding.emptyPlaceholder.visibility = View.GONE
-                    } else {
-                        binding.recViewMain.visibility = View.GONE
-                        //binding.emptyPlaceholder.visibility = View.VISIBLE
-                    }
                 } else {
                     Log.i("HTTP", "respuesta erronea :(")
                 }
+
             }
         }
     }

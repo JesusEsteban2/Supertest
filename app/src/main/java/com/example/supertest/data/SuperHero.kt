@@ -16,12 +16,12 @@ data class SuperHero (
 )
 
 data class Biography(
-    /*@SerializedName ("") aliases: List<String>,
-    val alignment: String,
-    val alter-egos: String,
-    val first-appearance: String,
-    val full-name: String,
-    val place-of-birth: String,*/
+    // @SerializedName ("") aliases: List<String>,
+    @SerializedName("alignment")val alignment: String,
+    @SerializedName("alter-egos")val alterEgos: String,
+    @SerializedName("first-appearance")val firstAppearance: String,
+    @SerializedName("full-name")val fullName: String,
+    @SerializedName("place-of-birth")val placeBirth: String,
     @SerializedName("publisher") val publisher: String
 )
 

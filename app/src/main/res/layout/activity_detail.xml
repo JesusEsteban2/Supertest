@@ -6,4 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".Activities.DetailActivity">
 
+    <TextView
+        android:id="@+id/nameSuper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+
+    <ImageView
+        android:id="@+id/imageSuper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nameSuper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+
+    <TextView
+        android:id="@+id/fullNamTit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:text="Full Name: "
+        app:layout_constraintTop_toBottomOf="@id/imageSuper"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        app:layout_constraintTop_toBottomOf="@id/imageSuper"
+        app:layout_constraintStart_toEndOf="@id/alignTit"
+        />
+
+
+    <TextView
+        android:id="@+id/alignTit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:text="Alignment: "
+        app:layout_constraintTop_toBottomOf="@id/fullNamTit"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/alignment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        app:layout_constraintTop_toBottomOf="@id/fullName"
+        app:layout_constraintStart_toEndOf="@id/alignTit"
+        />
+
+    <TextView
+        android:id="@+id/alterTit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:text="Alter Ego: "
+        app:layout_constraintTop_toBottomOf="@id/alignment"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/alterEgos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        app:layout_constraintTop_toBottomOf="@id/alignment"
+        app:layout_constraintStart_toEndOf="@id/alterTit"
+        />
+
+    <TextView
+        android:id="@+id/firstApTit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:text="First Appearance: "
+        app:layout_constraintTop_toBottomOf="@id/alterTit"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/firstAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        app:layout_constraintTop_toBottomOf="@id/alterEgos"
+        app:layout_constraintStart_toEndOf="@id/firstApTit"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

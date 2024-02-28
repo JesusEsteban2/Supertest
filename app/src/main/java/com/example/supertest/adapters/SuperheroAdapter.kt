@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.supertest.data.SuperHero
 import com.example.supertest.databinding.ItemSuperheroBinding
 import com.squareup.picasso.Picasso
+
 class SuperheroAdapter(private var items:List<SuperHero> = listOf(),
                        private val onClickListener: (position:Int) -> Unit
 ) : RecyclerView.Adapter<SuperheroViewHolder>() {
