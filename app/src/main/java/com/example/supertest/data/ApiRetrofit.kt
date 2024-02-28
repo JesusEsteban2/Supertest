@@ -1,5 +1,9 @@
 package com.example.supertest.data
 
+import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -12,6 +16,14 @@ interface RetrofitService {
     @GET("search/{query}")
     suspend fun searchByName(@Path("query") query: String?): Response<SuperHeroResponse>
 }
+
+
+
+
+
+
+
+
 
 /*
 object RetrofitAdapter {
