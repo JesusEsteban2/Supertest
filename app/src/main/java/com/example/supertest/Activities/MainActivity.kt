@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         binding.recViewMain.adapter = adapter
         binding.recViewMain.layoutManager = GridLayoutManager(this, 2)
 
-        //Captura el intro enb el cuadro de texto para realizar la busqueda en vez de nueva línea
+        //Captura el intro en el cuadro de texto para realizar la busqueda en vez de nueva línea
         binding.editSearch.setOnEditorActionListener(OnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.action == KeyEvent.ACTION_DOWN || keyEvent.action == KeyEvent.KEYCODE_ENTER) {
                 binding.findButton.requestFocus()
@@ -80,13 +80,13 @@ class MainActivity : AppCompatActivity() {
 
         val service=RetrofitBuilder.getService()
 
+        // Llamada en 2º plano
         CoroutineScope(Dispatchers.IO).launch {
-            // Llamada en 2º plano
+
             val response = service.searchByName(query)
 
             runOnUiThread {
                 // Modificar UI
-                //binding.progress.visibility = View.GONE
                 if (response.body()!!.listSuperHero != null && response.isSuccessful == true) {
                     Log.i("HTTP", "respuesta correcta :)")
                     Log.i ("HTTP", response.body().toString())
@@ -95,8 +95,9 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Log.i("HTTP", "respuesta erronea :(")
                 }
-
             }
+
         }
+
     }
 }

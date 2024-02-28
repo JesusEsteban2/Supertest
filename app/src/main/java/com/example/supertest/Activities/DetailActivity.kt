@@ -48,7 +48,7 @@ class DetailActivity : AppCompatActivity() {
                 // Modificar UI
                 //binding.progress.visibility = View.GONE
 
-                if (response != null && response.isSuccessful == true) {
+                if (response.body() != null && response.isSuccessful == true) {
                     Log.i("HTTP", "respuesta correcta :)")
                     Log.i ("HTTP", response.body().toString())
                     render(response.body()!!)
