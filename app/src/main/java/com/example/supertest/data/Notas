@@ -48,3 +48,14 @@ val retrofit = Retrofit.Builder()
     .build()
 
 ****************************************
+
+captura de teclas en texedit.
+
+binding.editSearch.setOnEditorActionListener(OnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.action == KeyEvent.ACTION_DOWN || keyEvent.action == KeyEvent.KEYCODE_ENTER) {
+                binding.findButton.requestFocus()
+                searchSuperheroes(binding.editSearch.text.toString())
+                return@OnEditorActionListener true
+            }
+            false
+        })

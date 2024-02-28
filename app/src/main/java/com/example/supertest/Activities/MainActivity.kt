@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         //Captura el intro en el cuadro de texto para realizar la busqueda en vez de nueva línea
         binding.editSearch.setOnEditorActionListener(OnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.action == KeyEvent.ACTION_DOWN || keyEvent.action == KeyEvent.KEYCODE_ENTER) {
+            if (keyEvent.action == KeyEvent.ACTION_DOWN) {
                 binding.findButton.requestFocus()
                 searchSuperheroes(binding.editSearch.text.toString())
                 return@OnEditorActionListener true
