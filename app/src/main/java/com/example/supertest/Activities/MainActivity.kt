@@ -4,23 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.supertest.adapters.SuperheroAdapter
 import com.example.supertest.data.RetrofitBuilder
-import com.example.supertest.data.RetrofitService
 import com.example.supertest.data.SuperHero
 import com.example.supertest.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -59,7 +54,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun onItemClickListener(position:Int) {
         val superhero: SuperHero = superheroList[position]
-
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("EXTRA_ID", superhero.id)
         intent.putExtra("EXTRA_NAME", superhero.name)
@@ -87,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
             runOnUiThread {
                 // Modificar UI
-                if (response.body()!!.listSuperHero != null && response.isSuccessful == true) {
+                if ((response.body()!!.listSuperHero != null ) && response.isSuccessful == true) {
                     Log.i("HTTP", "respuesta correcta :)")
                     Log.i ("HTTP", response.body().toString())
                     superheroList = response.body()!!.listSuperHero
